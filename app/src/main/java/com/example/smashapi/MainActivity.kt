@@ -4,8 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.example.smashapi.viewmodel.CharactersScreen
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
 import com.example.smashapi.viewmodel.CharactersViewModel
+import com.example.smashapi.views.CharacterListScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -17,7 +21,10 @@ class MainActivity : ComponentActivity() {
         viewModel.loadCharacters()
 
         setContent {
-            CharactersScreen(viewModel)
+            Surface(color = MaterialTheme.colorScheme.background) {
+                val characters = viewModel.characters.collectAsState(initial = emptyList())
+                CharacterListScreen(characters = characters.value)
+            }
         }
     }
 }
