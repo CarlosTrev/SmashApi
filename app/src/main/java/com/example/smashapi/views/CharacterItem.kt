@@ -24,10 +24,10 @@ fun CharacterItem(character: SmashCharacter) {
         modifier = Modifier
             .padding(12.dp)
             .fillMaxWidth()
-            .height(280.dp), // Más largo verticalmente
+            .height(280.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Black),
         shape = RoundedCornerShape(16.dp),
-        border = BorderStroke(3.dp, Color(0xFFFFD700)) // borde dorado más grueso
+        border = BorderStroke(3.dp, Color(0xFFFFD700))
     ) {
         Column(
             modifier = Modifier
@@ -36,8 +36,6 @@ fun CharacterItem(character: SmashCharacter) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            // Imagen del personaje
             AsyncImage(
                 model = character.images.portrait,
                 contentDescription = character.name,
@@ -48,14 +46,13 @@ fun CharacterItem(character: SmashCharacter) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Nombre con fuente, color y sombra
             Text(
                 text = character.name,
                 style = TextStyle(
-                    color = Color(0xFFFFC107), // color dorado/naranja que haga juego
+                    color = Color(0xFFFFC107),
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Serif, // puedes usar otra fuente si agregas la TTF
+                    fontFamily = FontFamily.Serif,
                     shadow = Shadow(
                         color = Color.Black,
                         offset = Offset(4f, 4f),

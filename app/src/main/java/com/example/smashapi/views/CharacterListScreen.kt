@@ -11,14 +11,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.smashapi.data.SmashCharacter
+import kotlinx.coroutines.delay
 
 @Composable
 fun CharacterListScreen(characters: List<SmashCharacter>) {
     var searchQuery by remember { mutableStateOf("") }
+    var displayedCharacters by remember { mutableStateOf(listOf<SmashCharacter>()) }
 
-    val filteredCharacters = characters.filter {
+    LaunchedEffect(characters) {
+        displayedCharacters = emptyList()
+        for (char in characters) {
+            displayedCharacters = displayedCharacters + char
+            delay(50)
+        }
+    }
+
+    val filteredCharacters = displayedCharacters.filter {
         it.name.contains(searchQuery, ignoreCase = true)
     }
 
@@ -40,12 +49,22 @@ fun CharacterListScreen(characters: List<SmashCharacter>) {
             textStyle = TextStyle(color = Color.Blue)
         )
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(filteredCharacters) { character ->
-                CharacterItem(character = character)
+        if (displayedCharacters.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color(0xFFFFD700))
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(filteredCharacters) { character ->
+                    CharacterItem(character = character)
+                }
             }
         }
     }
