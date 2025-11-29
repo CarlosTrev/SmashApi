@@ -26,6 +26,7 @@ fun CharacterListScreen(characters: List<SmashCharacter>) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
+            .statusBarsPadding()
             .padding(8.dp)
     ) {
         TextField(
@@ -36,7 +37,7 @@ fun CharacterListScreen(characters: List<SmashCharacter>) {
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
             shape = RoundedCornerShape(12.dp),
-            textStyle = TextStyle(color = Color.White)
+            textStyle = TextStyle(color = Color.Blue)
         )
 
         LazyColumn(
