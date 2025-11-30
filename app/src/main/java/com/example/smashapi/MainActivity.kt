@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.runtime.collectAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.smashapi.navigation.Navigation
 import com.example.smashapi.viewmodel.CharactersViewModel
-import com.example.smashapi.views.CharacterListScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -14,12 +14,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel.loadCharacters()
 
         setContent {
-            val characters = viewModel.characters.collectAsState()
-            CharacterListScreen(characters = characters.value)
+            val navController = rememberNavController()
+            Navigation(navController, viewModel)
         }
     }
 }
